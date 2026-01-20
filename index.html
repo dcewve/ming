@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中粮生化（成都）有限公司年会抽奖活动</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 标题区域 -->
+        <header class="header">
+            <h1 class="title">🎉 中粮生化（成都）有限公司年会抽奖活动 🎉</h1>
+            <div class="subtitle">名字滚动抽奖（支持手动停止 + 随机自动停止，公平抽取）</div>
+        </header>
+
+        <!-- 主抽奖区域 -->
+        <main class="main-content">
+            <!-- 抽奖区域：名字滚动 -->
+            <div class="wheel-container">
+                <div class="roller">
+                    <div class="roller-label">当前候选</div>
+                    <div id="rollingName" class="rolling-name">准备开始</div>
+                    <div class="roller-hint">提示：空格键开始/停止；开启“随机自动停止”后会在指定秒数范围内随机停</div>
+                </div>
+                <div class="wheel-controls">
+                    <button id="startBtn" class="btn btn-primary btn-large">
+                        <span class="btn-text">开始</span>
+                        <span class="btn-icon">▶</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 参与者列表区域 -->
+            <div class="participants-section">
+                <div class="section-header">
+                    <h2>参与者列表</h2>
+                    <button id="addParticipantBtn" class="btn btn-small">+ 添加</button>
+                </div>
+                <div class="participants-list" id="participantsList">
+                    <!-- 参与者将通过JS动态添加 -->
+                </div>
+                <div class="participants-input">
+                    <input type="text" id="participantInput" placeholder="输入姓名后按回车添加">
+                    <button id="importBtn" class="btn btn-small">批量导入</button>
+                </div>
+            </div>
+
+            <!-- 获奖名单区域 -->
+            <div class="winners-section">
+                <div class="section-header">
+                    <h2>🏆 获奖名单</h2>
+                    <button id="clearWinnersBtn" class="btn btn-small">清空</button>
+                </div>
+                <div class="winners-list" id="winnersList">
+                    <div class="empty-state">暂无获奖者</div>
+                </div>
+            </div>
+
+            <!-- 抽奖设置区域 -->
+            <div class="settings-section">
+                <h3>抽奖设置</h3>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label>每次抽取人数：</label>
+                        <input type="number" id="drawCount" value="1" min="1" max="10">
+                    </div>
+                    <div class="setting-item">
+                        <label>滚动速度：</label>
+                        <input type="range" id="speedSlider" min="1" max="10" value="5">
+                        <span id="speedValue">5</span>
+                    </div>
+                    <div class="setting-item">
+                        <label>随机自动停止：</label>
+                        <input type="checkbox" id="autoStopToggle" checked>
+                    </div>
+                    <div class="setting-item">
+                        <label>自动停止范围(秒)：</label>
+                        <input type="number" id="autoStopMinSec" value="3" min="1" max="60" style="width: 70px;">
+                        <span>~</span>
+                        <input type="number" id="autoStopMaxSec" value="8" min="1" max="60" style="width: 70px;">
+                    </div>
+                    <div class="setting-item">
+                        <label>音效：</label>
+                        <input type="checkbox" id="soundToggle" checked>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 获奖弹窗 -->
+        <div id="winnerModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>🎊 恭喜获奖 🎊</h2>
+                    <button class="modal-close" id="closeModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="winner-display" id="winnerDisplay"></div>
+                    <div class="confetti"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="confirmBtn">确定</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 批量导入弹窗 -->
+        <div id="importModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>批量导入参与者</h2>
+                    <button class="modal-close" id="closeImportModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="importTextarea" placeholder="每行输入一个姓名，例如：&#10;张三&#10;李四&#10;王五"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="confirmImportBtn">确认导入</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
